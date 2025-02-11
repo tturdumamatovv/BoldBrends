@@ -27,6 +27,8 @@ from apps.pages.models import (
     ServiceOffering,
     CompanyPostsItems,
     Tags,
+    BusinessType,
+    PromotionType,
     )
 
 from .serializers import (  
@@ -52,6 +54,8 @@ from .serializers import (
     ServiceOfferingSerializer,
     CompanyPostsItemsSerializer,
     CompanyPostsItemsDetailSerializer,
+    BusinessTypeSerializer,
+    PromotionTypeSerializer,
     )
 
 class MarketingDepartmentView(generics.RetrieveAPIView):
@@ -286,3 +290,13 @@ class CompanyPostsItemsDetailView(generics.RetrieveAPIView):
     serializer_class = CompanyPostsItemsDetailSerializer
     queryset = CompanyPostsItems.objects.all()
     lookup_field = 'id'
+
+
+class BusinessTypeListView(generics.ListAPIView):
+    serializer_class = BusinessTypeSerializer
+    queryset = BusinessType.objects.all()
+
+
+class PromotionTypeListView(generics.ListAPIView):
+    serializer_class = PromotionTypeSerializer
+    queryset = PromotionType.objects.all()

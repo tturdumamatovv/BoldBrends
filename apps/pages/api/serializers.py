@@ -42,6 +42,8 @@ from apps.pages.models import (
     CompanyPostsItemsTasks,
     CompanyPostsItemsImages,
     CompanyPostsItemsResult,
+    BusinessType,
+    PromotionType,
 )
 
 class MarketingDepartmentChaptersSerializer(serializers.ModelSerializer):
@@ -158,10 +160,25 @@ class PartnersReviewsSerializer(serializers.ModelSerializer):
         fields = ('title', 'description', 'items')
 
 
+class BusinessTypeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = BusinessType
+        fields = ('id', 'name')
+
+
+class PromotionTypeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PromotionType
+        fields = ('id', 'name')
+
+
 class ApplicationFormSerializer(serializers.ModelSerializer):
+    business_type = serializers.PrimaryKeyRelatedField(many=True, queryset=BusinessType.objects.all())
+    promotion_type = serializers.PrimaryKeyRelatedField(many=True, queryset=PromotionType.objects.all())
+
     class Meta:
         model = ApplicationForm
-        fields = ('sender_name', 'sender_phone', 'sender_email')
+        fields = ('sender_name', 'sender_phone', 'sender_email', 'business_type', 'promotion_type')
 
 
 class CompanyApplicationSerializer(serializers.ModelSerializer):

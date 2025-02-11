@@ -23,6 +23,8 @@ from .views import (
     ServiceOfferingView,
     CompanyPostsItemsListView,
     CompanyPostsItemsDetailView,
+    BusinessTypeListView,
+    PromotionTypeListView,
 )
 
 urlpatterns = [
@@ -49,4 +51,6 @@ urlpatterns = [
     path('service-offering/', ServiceOfferingView.as_view(), name='service-offering'),
     path('posts/', CompanyPostsItemsListView.as_view(), name='posts-list'),
     path('posts/<int:id>/', CompanyPostsItemsDetailView.as_view(), name='posts-detail'),
+    path('business-types/', BusinessTypeListView.as_view(), name='business-types'),
+    path('promotion-types/', PromotionTypeListView.as_view(), name='promotion-types'),
 ]

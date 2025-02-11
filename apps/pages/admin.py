@@ -44,6 +44,8 @@ from .models import (
     CompanyPostsItemsTasks,
     CompanyPostsItemsImages,
     CompanyPostsItemsResult,
+    BusinessType,
+    PromotionType,
 )
 
 class MarketingDepartmentChaptersInline(StackedInline, TranslationStackedInline):
@@ -210,7 +212,7 @@ class CompanyApplicationAdmin(ModelAdmin, TabbedTranslationAdmin):
 
 @admin.register(ApplicationForm)
 class ApplicationFormAdmin(ModelAdmin):
-    pass
+    filter_horizontal = ['business_type', 'promotion_type']
 
 
 @admin.register(StaticPages)
@@ -381,3 +383,13 @@ class ServiceOfferingAdmin(ModelAdmin, TabbedTranslationAdmin):
     
     def has_delete_permission(self, request, obj=None):
         return False
+
+
+@admin.register(BusinessType)
+class BusinessTypeAdmin(ModelAdmin, TabbedTranslationAdmin):
+    list_display = ['name']
+
+
+@admin.register(PromotionType)
+class PromotionTypeAdmin(ModelAdmin, TabbedTranslationAdmin):
+    list_display = ['name']

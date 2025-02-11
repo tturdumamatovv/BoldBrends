@@ -37,6 +37,8 @@ from .models import (
     CompanyPostsItemsTasks,
     CompanyPostsItemsImages,
     CompanyPostsItemsResult,
+    BusinessType,
+    PromotionType,
 )
 
 @register(StaticPages)
@@ -223,3 +225,13 @@ class CompanyPostsItemsImagesTranslationOptions(TranslationOptions):
 @register(CompanyPostsItemsResult)
 class CompanyPostsItemsResultTranslationOptions(TranslationOptions):
     fields = ('header', 'title', 'description')
+
+
+@register(BusinessType)
+class BusinessTypeTranslationOptions(TranslationOptions):
+    fields = ('name',)
+
+
+@register(PromotionType)
+class PromotionTypeTranslationOptions(TranslationOptions):
+    fields = ('name',)

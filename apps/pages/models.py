@@ -279,10 +279,36 @@ class CompanyApplication(models.Model):
         return self.title
 
 
+class BusinessType(models.Model):
+    name = models.CharField(verbose_name=_('Название'), max_length=255, help_text=_('Например: Ресторан'))
+
+    class Meta:
+        verbose_name = _('Тип бизнеса')
+        verbose_name_plural = _('Типы бизнеса')
+        ordering = ['name']
+
+    def __str__(self):
+        return self.name
+
+
+class PromotionType(models.Model):
+    name = models.CharField(verbose_name=_('Название'), max_length=255, help_text=_('Например: SMM продвижение'))
+
+    class Meta:
+        verbose_name = _('Тип продвижения')
+        verbose_name_plural = _('Типы продвижения')
+        ordering = ['name']
+
+    def __str__(self):
+        return self.name
+
+
 class ApplicationForm(models.Model):
     sender_name = models.CharField(verbose_name=_('Имя отправителя'), max_length=255, help_text=_('Например: John Doe'))
     sender_phone = models.CharField(verbose_name=_('Телефон отправителя'), max_length=255, help_text=_('Например: +7 999 999 99 99'))
     sender_email = models.EmailField(verbose_name=_('Email отправителя'), max_length=255, help_text=_('Например: john.doe@example.com'))
+    business_type = models.ManyToManyField(BusinessType, verbose_name=_('Типы бизнеса'))
+    promotion_type = models.ManyToManyField(PromotionType, verbose_name=_('Типы продвижения'))
 
     class Meta:
         verbose_name = _('Форма заявки на партнерство')

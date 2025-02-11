@@ -210,7 +210,25 @@ UNFOLD = {
                         "link": reverse_lazy("admin:pages_serviceoffering_changelist"),
                     }
                 ],
-            },
+                },
+                {
+                    "title": _("Настройки"),
+                    "icon": "settings",
+                    "collapsible": True,
+                    "collapsed": True,
+                    "items": [
+                        {
+                            "title": _("Типы бизнеса"),
+                            "icon": "business",
+                            "link": reverse_lazy("admin:pages_businesstype_changelist"),
+                        },
+                        {
+                            "title": _("Типы продвижения"),
+                            "icon": "publish",
+                            "link": reverse_lazy("admin:pages_promotiontype_changelist"),
+                        },
+                    ]
+                }    
         ],
     },
     # "TABS": [
