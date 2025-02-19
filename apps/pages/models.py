@@ -303,12 +303,78 @@ class PromotionType(models.Model):
         return self.name
 
 
+class SiteStatusType(models.Model):
+    name = models.CharField(verbose_name=_("Название"), max_length=255, help_text=_('Новый сайт'))
+
+    class Meta:
+        verbose_name = _("Статус Сайта")
+        verbose_name_plural = _("Статус Сайт")
+        ordering = ['name']
+
+    def __str__(self):
+        return self.name
+
+
+class PurposePromotionType(models.Model):
+    name = models.CharField(verbose_name=_("Название"), max_length=255, help_text=_('Реклама'))
+
+    class Meta:
+        verbose_name = _("Цель продвижения")
+        verbose_name_plural = _("Цель продвижения")
+        ordering = ['name']
+
+    def __str__(self):
+        return self.name
+
+
+class ServiceType(models.Model):
+    name = models.CharField(verbose_name=_("Название"), max_length=255, help_text=_('Нейминг'))
+
+    class Meta:
+        verbose_name = _("Услуги продвижения")
+        verbose_name_plural = _("Услуги продвижения")
+        ordering = ['name']
+
+    def __str__(self):
+        return self.name
+
+
+class VideoType(models.Model):
+    name = models.CharField(verbose_name=_("Название"), max_length=255, help_text=_('Фотосессия'))
+
+    class Meta:
+        verbose_name = _("Тип видео")
+        verbose_name_plural = _("Типы видео")
+        ordering = ['name']
+
+    def __str__(self):
+        return self.name
+
+
+class TaskType(models.Model):
+    name = models.CharField(verbose_name=_("Название"), max_length=255, help_text=_('Аналитика'))
+
+    class Meta:
+        verbose_name = _("Задача")
+        verbose_name_plural = _("Задачи")
+        ordering = ['name']
+
+    def __str__(self):
+        return self.name
+
+
 class ApplicationForm(models.Model):
     sender_name = models.CharField(verbose_name=_('Имя отправителя'), max_length=255, help_text=_('Например: John Doe'))
     sender_phone = models.CharField(verbose_name=_('Телефон отправителя'), max_length=255, help_text=_('Например: +7 999 999 99 99'))
     sender_email = models.EmailField(verbose_name=_('Email отправителя'), max_length=255, help_text=_('Например: john.doe@example.com'))
     business_type = models.ManyToManyField(BusinessType, verbose_name=_('Типы бизнеса'))
     promotion_type = models.ManyToManyField(PromotionType, verbose_name=_('Типы продвижения'))
+    quantity_of_publications = models.TextField(null=True, blank=True, verbose_name=_('Количество публикаций в месяц'))
+    site_status = models.ManyToManyField(SiteStatusType, verbose_name=_("Статус сайта"))
+    purpose_of_promotion = models.ManyToManyField(PurposePromotionType, verbose_name=_("Цель продвижения"))
+    service_type = models.ManyToManyField(ServiceType, verbose_name=_("Услуги"))
+    video_type = models.ManyToManyField(VideoType, verbose_name=_("Типы видео"))
+    task_type = models.ManyToManyField(TaskType, verbose_name=_("Типы Задач"))
 
     class Meta:
         verbose_name = _('Форма заявки на партнерство')

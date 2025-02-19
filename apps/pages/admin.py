@@ -46,6 +46,11 @@ from .models import (
     CompanyPostsItemsResult,
     BusinessType,
     PromotionType,
+    SiteStatusType,
+    PurposePromotionType,
+    ServiceType,
+    VideoType,
+    TaskType,
 )
 
 class MarketingDepartmentChaptersInline(StackedInline, TranslationStackedInline):
@@ -202,17 +207,12 @@ class PartnersReviewsAdmin(ModelAdmin, TabbedTranslationAdmin):
 
 @admin.register(CompanyApplication)
 class CompanyApplicationAdmin(ModelAdmin, TabbedTranslationAdmin):
-    
-    def has_add_permission(self, request):
-        return not CompanyApplication.objects.exists()
-    
-    def has_delete_permission(self, request, obj=None):
-        return False
+    list_display = ['title']
 
 
 @admin.register(ApplicationForm)
 class ApplicationFormAdmin(ModelAdmin):
-    filter_horizontal = ['business_type', 'promotion_type']
+    filter_horizontal = ['business_type', 'promotion_type', 'site_status', 'purpose_of_promotion', 'service_type', 'video_type', 'task_type']
 
 
 @admin.register(StaticPages)
@@ -392,4 +392,29 @@ class BusinessTypeAdmin(ModelAdmin, TabbedTranslationAdmin):
 
 @admin.register(PromotionType)
 class PromotionTypeAdmin(ModelAdmin, TabbedTranslationAdmin):
+    list_display = ['name']
+
+
+@admin.register(SiteStatusType)
+class SiteStatusTypeAdmin(ModelAdmin, TabbedTranslationAdmin):
+    list_display = ['name']
+
+
+@admin.register(PurposePromotionType)
+class PurposePromotionTypeAdmin(ModelAdmin, TabbedTranslationAdmin):
+    list_display = ['name']
+
+
+@admin.register(ServiceType)
+class ServiceTypeAdmin(ModelAdmin, TabbedTranslationAdmin):
+    list_display = ['name']
+
+
+@admin.register(VideoType)
+class VideoTypeAdmin(ModelAdmin, TabbedTranslationAdmin):
+    list_display = ['name']
+
+
+@admin.register(TaskType)
+class TaskTypeAdmin(ModelAdmin, TabbedTranslationAdmin):
     list_display = ['name']

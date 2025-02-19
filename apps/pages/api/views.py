@@ -29,6 +29,11 @@ from apps.pages.models import (
     Tags,
     BusinessType,
     PromotionType,
+    PurposePromotionType,
+    SiteStatusType,
+    ServiceType,
+    VideoType,
+    TaskType,
     )
 
 from .serializers import (  
@@ -41,6 +46,12 @@ from .serializers import (
     PartnersReviewsSerializer,
     CompanyApplicationSerializer,
     ApplicationFormSerializer,
+    ApplicationFromFirstSerializer,
+    ApplicationFromSecondSerializer,
+    ApplicationFromThirdSerializer,
+    ApplicationFromFourthSerializer,
+    ApplicationFromFifthSerializer,
+    ApplicationFromSixthSerializer,
     StaticPagesSerializer,
     CompanyTeamSerializer,
     CompanyAdvertisingSerializer,
@@ -56,7 +67,13 @@ from .serializers import (
     CompanyPostsItemsDetailSerializer,
     BusinessTypeSerializer,
     PromotionTypeSerializer,
+    SiteStatusTypeSerializer,
+    PurposePromotionTypeSerializer,
+    ServiceTypeSerializer,
+    VideoTypeSerializer,
+    TaskTypeSerializer
     )
+
 
 class MarketingDepartmentView(generics.RetrieveAPIView):
     serializer_class = MarketingDepartmentSerializer
@@ -121,17 +138,160 @@ class PartnersReviewsView(generics.RetrieveAPIView):
         return PartnersReviews.objects.prefetch_related(
             'items',
         ).first() 
-
-
-class CompanyApplicationView(generics.RetrieveAPIView):
-    serializer_class = CompanyApplicationSerializer
     
-    def get_object(self):
-        return CompanyApplication.objects.first()
-
 
 class ApplicationFormView(generics.CreateAPIView):
     serializer_class = ApplicationFormSerializer
+    
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(
+                {
+                    "status": "success",
+                    "message": "Заявка успешно отправлена",
+                    "data": serializer.data
+                }, 
+                status=status.HTTP_201_CREATED
+            )
+        return Response(
+            {
+                "status": "error",
+                "message": "Ошибка при отправке заявки",
+                "errors": serializer.errors
+            }, 
+            status=status.HTTP_400_BAD_REQUEST
+        )
+
+
+class ApplicationFormFirstView(generics.CreateAPIView):
+    serializer_class = ApplicationFromFirstSerializer
+    
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(
+                {
+                    "status": "success",
+                    "message": "Заявка успешно отправлена",
+                    "data": serializer.data
+                }, 
+                status=status.HTTP_201_CREATED
+            )
+        return Response(
+            {
+                "status": "error",
+                "message": "Ошибка при отправке заявки",
+                "errors": serializer.errors
+            }, 
+            status=status.HTTP_400_BAD_REQUEST
+        )
+
+
+class ApplicationFormSecondView(generics.CreateAPIView):
+    serializer_class = ApplicationFromSecondSerializer
+    
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(
+                {
+                    "status": "success",
+                    "message": "Заявка успешно отправлена",
+                    "data": serializer.data
+                }, 
+                status=status.HTTP_201_CREATED
+            )
+        return Response(
+            {
+                "status": "error",
+                "message": "Ошибка при отправке заявки",
+                "errors": serializer.errors
+            }, 
+            status=status.HTTP_400_BAD_REQUEST
+        )
+
+
+class ApplicationFormThirdView(generics.CreateAPIView):
+    serializer_class = ApplicationFromThirdSerializer
+    
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(
+                {
+                    "status": "success",
+                    "message": "Заявка успешно отправлена",
+                    "data": serializer.data
+                }, 
+                status=status.HTTP_201_CREATED
+            )
+        return Response(
+            {
+                "status": "error",
+                "message": "Ошибка при отправке заявки",
+                "errors": serializer.errors
+            }, 
+            status=status.HTTP_400_BAD_REQUEST
+        )
+
+
+class ApplicationFormFourthView(generics.CreateAPIView):
+    serializer_class = ApplicationFromFourthSerializer
+    
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(
+                {
+                    "status": "success",
+                    "message": "Заявка успешно отправлена",
+                    "data": serializer.data
+                }, 
+                status=status.HTTP_201_CREATED
+            )
+        return Response(
+            {
+                "status": "error",
+                "message": "Ошибка при отправке заявки",
+                "errors": serializer.errors
+            }, 
+            status=status.HTTP_400_BAD_REQUEST
+        )
+
+
+class ApplicationFormFifthView(generics.CreateAPIView):
+    serializer_class = ApplicationFromFifthSerializer
+    
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(
+                {
+                    "status": "success",
+                    "message": "Заявка успешно отправлена",
+                    "data": serializer.data
+                }, 
+                status=status.HTTP_201_CREATED
+            )
+        return Response(
+            {
+                "status": "error",
+                "message": "Ошибка при отправке заявки",
+                "errors": serializer.errors
+            }, 
+            status=status.HTTP_400_BAD_REQUEST
+        )
+
+
+class ApplicationFormSixthView(generics.CreateAPIView):
+    serializer_class = ApplicationFromSixthSerializer
     
     def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
@@ -164,8 +324,6 @@ class StaticPagesDetailView(generics.RetrieveAPIView):
     serializer_class = StaticPagesSerializer
     lookup_field = 'slug'
     queryset = StaticPages.objects.all()
-
-
 
 
 class CompanyTeamView(generics.RetrieveAPIView):
@@ -300,3 +458,39 @@ class BusinessTypeListView(generics.ListAPIView):
 class PromotionTypeListView(generics.ListAPIView):
     serializer_class = PromotionTypeSerializer
     queryset = PromotionType.objects.all()
+
+
+class SiteStatusTypeListView(generics.ListAPIView):
+    serializer_class = SiteStatusTypeSerializer
+    queryset = SiteStatusType.objects.all()
+
+
+class PurposePromotionTypeListView(generics.ListAPIView):
+    serializer_class = PurposePromotionTypeSerializer
+    queryset = PurposePromotionType.objects.all()
+
+
+class ServiceTypeListView(generics.ListAPIView):
+    serializer_class = ServiceTypeSerializer
+    queryset = ServiceType.objects.all()
+
+
+class VideoTypeListView(generics.ListAPIView):
+    serializer_class = VideoTypeSerializer
+    queryset = VideoType.objects.all()
+
+
+class TaskTypeListView(generics.ListAPIView):
+    serializer_class = TaskTypeSerializer
+    queryset = TaskType.objects.all()
+
+
+class CompanyApplicationListView(generics.ListAPIView):
+    serializer_class = CompanyApplicationSerializer
+    queryset = CompanyApplication.objects.all()
+
+
+class CompanyApplicationDetailView(generics.RetrieveAPIView):
+    serializer_class = CompanyApplicationSerializer
+    queryset = CompanyApplication.objects.all()
+    lookup_field = 'id'

@@ -44,6 +44,11 @@ from apps.pages.models import (
     CompanyPostsItemsResult,
     BusinessType,
     PromotionType,
+    SiteStatusType,
+    PurposePromotionType,
+    ServiceType,
+    VideoType,
+    TaskType,
 )
 
 class MarketingDepartmentChaptersSerializer(serializers.ModelSerializer):
@@ -172,6 +177,36 @@ class PromotionTypeSerializer(serializers.ModelSerializer):
         fields = ('id', 'name')
 
 
+class SiteStatusTypeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SiteStatusType
+        fields = ('id', 'name')
+
+
+class PurposePromotionTypeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PurposePromotionType
+        fields = ('id', 'name')
+
+
+class ServiceTypeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ServiceType
+        fields = ('id', 'name')
+
+
+class VideoTypeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = VideoType
+        fields = ('id', 'name')
+
+
+class TaskTypeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TaskType
+        fields = ('id', 'name')
+
+
 class ApplicationFormSerializer(serializers.ModelSerializer):
     business_type = serializers.PrimaryKeyRelatedField(many=True, queryset=BusinessType.objects.all())
     promotion_type = serializers.PrimaryKeyRelatedField(many=True, queryset=PromotionType.objects.all())
@@ -181,10 +216,62 @@ class ApplicationFormSerializer(serializers.ModelSerializer):
         fields = ('sender_name', 'sender_phone', 'sender_email', 'business_type', 'promotion_type')
 
 
+class ApplicationFromFirstSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ApplicationForm
+        fields = ('sender_name', 'sender_phone', 'sender_email')
+
+
+class ApplicationFromSecondSerializer(serializers.ModelSerializer):
+    business_type = serializers.PrimaryKeyRelatedField(many=True, queryset=BusinessType.objects.all())
+    promotion_type = serializers.PrimaryKeyRelatedField(many=True, queryset=PromotionType.objects.all())
+
+    class Meta:
+        model = ApplicationForm
+        fields = ('sender_name', 'sender_phone', 'sender_email', 'business_type', 'promotion_type', 'quantity_of_publications')
+
+
+class ApplicationFromThirdSerializer(serializers.ModelSerializer):
+    business_type = serializers.PrimaryKeyRelatedField(many=True, queryset=BusinessType.objects.all())
+    site_status = serializers.PrimaryKeyRelatedField(many=True, queryset=SiteStatusType.objects.all())
+    purpose_of_promotion = serializers.PrimaryKeyRelatedField(many=True, queryset=PurposePromotionType.objects.all())
+
+    class Meta:
+        model = ApplicationForm
+        fields = ('sender_name', 'sender_phone', 'sender_email', 'business_type', 'site_status', 'purpose_of_promotion')
+
+
+class ApplicationFromFourthSerializer(serializers.ModelSerializer):
+    business_type = serializers.PrimaryKeyRelatedField(many=True, queryset=BusinessType.objects.all())
+    service_type = serializers.PrimaryKeyRelatedField(many=True, queryset=ServiceType.objects.all())
+
+    class Meta:
+        model = ApplicationForm
+        fields = ('sender_name', 'sender_phone', 'sender_email', 'business_type', 'service_type')
+
+
+class ApplicationFromFifthSerializer(serializers.ModelSerializer):
+    business_type = serializers.PrimaryKeyRelatedField(many=True, queryset=BusinessType.objects.all())
+    video_type = serializers.PrimaryKeyRelatedField(many=True, queryset=VideoType.objects.all())
+
+    class Meta:
+        model = ApplicationForm
+        fields = ('sender_name', 'sender_phone', 'sender_email', 'business_type', 'video_type')
+
+
+class ApplicationFromSixthSerializer(serializers.ModelSerializer):
+    business_type = serializers.PrimaryKeyRelatedField(many=True, queryset=BusinessType.objects.all())
+    task_type = serializers.PrimaryKeyRelatedField(many=True, queryset=TaskType.objects.all())
+
+    class Meta:
+        model = ApplicationForm
+        fields = ('sender_name', 'sender_phone', 'sender_email', 'business_type', 'task_type')
+
+
 class CompanyApplicationSerializer(serializers.ModelSerializer):
     class Meta:
         model = CompanyApplication
-        fields = ('title', 'sub_title')
+        fields = ('id', 'title', 'sub_title')
 
 
 class StaticPagesSerializer(serializers.ModelSerializer):

@@ -227,6 +227,31 @@ UNFOLD = {
                             "icon": "publish",
                             "link": reverse_lazy("admin:pages_promotiontype_changelist"),
                         },
+                        {
+                            "title": _("Типы статуса сайта"),
+                            "icon": "web",
+                            "link": reverse_lazy("admin:pages_sitestatustype_changelist"),
+                        },
+                        {
+                            "title": _("Цель продвижения"),
+                            "icon": "Share",
+                            "link": reverse_lazy("admin:pages_purposepromotiontype_changelist"),
+                        },
+                        {
+                            "title": _("Услуги продвижения"),
+                            "icon": "sms",
+                            "link": reverse_lazy("admin:pages_servicetype_changelist"),
+                        },
+                        {
+                            "title": _("Видео продвижения"),
+                            "icon": "pause",
+                            "link": reverse_lazy("admin:pages_videotype_changelist"),
+                        },
+                        {
+                            "title": _("Типы задач"),
+                            "icon": "book",
+                            "link": reverse_lazy("admin:pages_tasktype_changelist"),
+                        }
                     ]
                 }    
         ],
