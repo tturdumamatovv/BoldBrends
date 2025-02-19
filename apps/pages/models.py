@@ -176,6 +176,20 @@ class CompanyPostsItemsTasks(models.Model):
         return self.title
 
 
+class CompanyPostsItemsTarget(models.Model):
+    company_post_item = models.ForeignKey(CompanyPostsItems, verbose_name=_('Пост компании'), on_delete=models.CASCADE, related_name='target')
+    title = models.CharField(verbose_name=_('Название рекламы'), max_length=255, help_text=_('Например: реклама клиента'), blank=True, null=True)
+    description = models.TextField(verbose_name=_('Описание рекламы'), help_text=_('Например: Основной реклама клиента было увеличить выручку корейского ресторана на 70%'), blank=True, null=True)
+
+    class Meta:
+        verbose_name = _('Реклама поста компании')
+        verbose_name_plural = _('Реклама постов компании')
+        ordering = ['-id']
+
+    def __str__(self):
+        return self.title
+
+
 class CompanyPostsItemsImages(models.Model):
     company_post_item = models.ForeignKey(CompanyPostsItems, verbose_name=_('Пост компании'), on_delete=models.CASCADE, related_name='images')
     title = models.CharField(verbose_name=_('Название'), max_length=255, help_text=_('Например: Фотография 1'))

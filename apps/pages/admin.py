@@ -44,6 +44,7 @@ from .models import (
     CompanyPostsItemsTasks,
     CompanyPostsItemsImages,
     CompanyPostsItemsResult,
+    CompanyPostsItemsTarget,
     BusinessType,
     PromotionType,
     SiteStatusType,
@@ -149,9 +150,16 @@ class CompanyPostsItemsTasksInline(StackedInline, TranslationStackedInline):
     verbose_name_plural = 'Задачи'
 
 
+class CompanyPostsItemsTargetInline(StackedInline, TranslationStackedInline):
+    model = CompanyPostsItemsTarget
+    extra = 0
+    verbose_name = 'Реклама'
+    verbose_name_plural = 'Рекламы'
+
+
 @admin.register(CompanyPostsItems)
 class CompanyPostsItemsAdmin(ModelAdmin, TabbedTranslationAdmin):
-    inlines = [CompanyPostsItemsTasksInline, CompanyPostsItemsImagesInline, CompanyPostsItemsResultInline]
+    inlines = [CompanyPostsItemsTasksInline, CompanyPostsItemsImagesInline, CompanyPostsItemsResultInline, CompanyPostsItemsTargetInline]
     filter_horizontal = ['tags', 'social_media']
 
 

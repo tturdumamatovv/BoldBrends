@@ -35,6 +35,7 @@ from .models import (
     ServiceOffering,
     ServiceOfferingItems,
     CompanyPostsItemsTasks,
+    CompanyPostsItemsTarget,
     CompanyPostsItemsImages,
     CompanyPostsItemsResult,
     BusinessType,
@@ -219,6 +220,11 @@ class ServiceOfferingItemsTranslationOptions(TranslationOptions):
 
 @register(CompanyPostsItemsTasks)
 class CompanyPostsItemsTasksTranslationOptions(TranslationOptions):
+    fields = ('title', 'description')
+
+
+@register(CompanyPostsItemsTarget)
+class CompanyPostsItemsTargetTranslationOptions(TranslationOptions):
     fields = ('title', 'description')
 
 

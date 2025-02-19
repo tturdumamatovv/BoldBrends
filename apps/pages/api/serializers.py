@@ -40,6 +40,7 @@ from apps.pages.models import (
     ServiceOffering,
     ServiceOfferingItems,
     CompanyPostsItemsTasks,
+    CompanyPostsItemsTarget,
     CompanyPostsItemsImages,
     CompanyPostsItemsResult,
     BusinessType,
@@ -126,7 +127,7 @@ class CompanyPostsItemsSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CompanyPostsItems
-        fields = ('image', 'title', 'company_name', 'created_at', 'tags', 'social_media')
+        fields = ('id', 'image', 'title', 'company_name', 'created_at', 'tags', 'social_media')
 
 
 class CompanyPostsSerializer(serializers.ModelSerializer):
@@ -425,6 +426,12 @@ class CompanyPostsItemsTasksSerializer(serializers.ModelSerializer):
         fields = ('title', 'description')
 
 
+class CompanyPostsItemsTargetSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CompanyPostsItemsTarget
+        fields = ('title', 'description')
+
+
 class CompanyPostsItemsImagesSerializer(serializers.ModelSerializer):
     class Meta:
         model = CompanyPostsItemsImages
@@ -441,6 +448,7 @@ class CompanyPostsItemsDetailSerializer(serializers.ModelSerializer):
     tags = TagsSerializer(many=True, read_only=True)
     social_media = SocialMediaSerializer(many=True, read_only=True)
     tasks = CompanyPostsItemsTasksSerializer(many=True, read_only=True)
+    target = CompanyPostsItemsTargetSerializer(many=True, read_only=True)
     images = CompanyPostsItemsImagesSerializer(many=True, read_only=True)
     results = CompanyPostsItemsResultSerializer(many=True, read_only=True)
 
