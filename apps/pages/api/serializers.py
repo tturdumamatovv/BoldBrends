@@ -464,5 +464,7 @@ class CompanyPostsItemsDetailSerializer(serializers.ModelSerializer):
             'social_media',
             'tasks',
             'images',
-            'results'
+            'results',
+            'target'
+
         )
