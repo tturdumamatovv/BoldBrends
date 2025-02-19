@@ -50,6 +50,7 @@ from apps.pages.models import (
     ServiceType,
     VideoType,
     TaskType,
+    CompanyPostsItemsImagesGallery,
 )
 
 class MarketingDepartmentChaptersSerializer(serializers.ModelSerializer):
@@ -432,10 +433,25 @@ class CompanyPostsItemsTargetSerializer(serializers.ModelSerializer):
         fields = ('title', 'description')
 
 
+class CompanyPostsItemsImagesGallerySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CompanyPostsItemsImagesGallery
+        fields = ('image',)
+
+
 class CompanyPostsItemsImagesSerializer(serializers.ModelSerializer):
+    image = serializers.SerializerMethodField()
+
     class Meta:
         model = CompanyPostsItemsImages
         fields = ('title', 'image', 'description')
+
+    def get_image(self, obj):
+        gallery_images = obj.gallery.all()
+        request = self.context.get('request')
+        if request is not None:
+            return [request.build_absolute_uri(img.image.url) for img in gallery_images]
+        return []
 
 
 class CompanyPostsItemsResultSerializer(serializers.ModelSerializer):

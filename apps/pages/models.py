@@ -675,3 +675,17 @@ class ServiceOfferingItems(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class CompanyPostsItemsImagesGallery(models.Model):
+    post_image = models.ForeignKey(CompanyPostsItemsImages, verbose_name=_('Изображение поста'), on_delete=models.CASCADE, related_name='gallery')
+    image = models.FileField(verbose_name=_('Изображение'), upload_to='company_posts_images/')
+    position = models.PositiveIntegerField(default=0, blank=False, null=False)
+
+    class Meta:
+        verbose_name = _('Галерея изображений поста')
+        verbose_name_plural = _('Галерея изображений постов')
+        ordering = ['position']
+
+    def __str__(self):
+        return f"Изображение для {self.post_image.title}"

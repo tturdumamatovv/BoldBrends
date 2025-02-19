@@ -1,6 +1,7 @@
 from django.contrib import admin
 from unfold.admin import ModelAdmin, StackedInline, TabularInline
 from modeltranslation.admin import TabbedTranslationAdmin, TranslationStackedInline
+from adminsortable2.admin import SortableInlineAdminMixin, SortableAdminBase
 
 from .models import (
     MarketingDepartment, 
@@ -52,6 +53,7 @@ from .models import (
     ServiceType,
     VideoType,
     TaskType,
+    CompanyPostsItemsImagesGallery,
 )
 
 class MarketingDepartmentChaptersInline(StackedInline, TranslationStackedInline):
@@ -136,11 +138,18 @@ class CompanyPostsItemsResultInline(StackedInline, TranslationStackedInline):
     verbose_name_plural = 'Результаты'
 
 
+class CompanyPostsItemsImagesGalleryInline(SortableInlineAdminMixin, TabularInline):
+    model = CompanyPostsItemsImagesGallery
+    extra = 1
+    fields = ['image']
+
+
 class CompanyPostsItemsImagesInline(StackedInline, TranslationStackedInline):
     model = CompanyPostsItemsImages
     extra = 0
     verbose_name = 'Изображение'
     verbose_name_plural = 'Изображения'
+    show_change_link = True
 
 
 class CompanyPostsItemsTasksInline(StackedInline, TranslationStackedInline):
@@ -157,6 +166,13 @@ class CompanyPostsItemsTargetInline(StackedInline, TranslationStackedInline):
     verbose_name_plural = 'Рекламы'
 
 
+@admin.register(CompanyPostsItemsImages)
+class CompanyPostsItemsImagesAdmin(SortableAdminBase, ModelAdmin, TabbedTranslationAdmin):
+    inlines = [CompanyPostsItemsImagesGalleryInline]
+    list_display = ['title', 'company_post_item']
+    list_filter = ['company_post_item']
+
+
 @admin.register(CompanyPostsItems)
 class CompanyPostsItemsAdmin(ModelAdmin, TabbedTranslationAdmin):
     inlines = [CompanyPostsItemsTasksInline, CompanyPostsItemsImagesInline, CompanyPostsItemsResultInline, CompanyPostsItemsTargetInline]
@@ -167,7 +183,7 @@ class CompanyPostsItemsInline(StackedInline, TranslationStackedInline):
     model = CompanyPostsItems
     extra = 0
     filter_horizontal = ['tags', 'social_media']
-    show_change_link = True  # Это добавит ссылку на редактирование каждого поста
+    show_change_link = True
 
 
 @admin.register(CompanyPosts)
@@ -226,17 +242,15 @@ class ApplicationFormAdmin(ModelAdmin):
 @admin.register(StaticPages)
 class StaticPagesAdmin(ModelAdmin, TabbedTranslationAdmin):
     list_display = ['title', 'slug']
-    prepopulated_fields = {'slug': ('title_ru',)}  # генерируем slug из русского заголовка
+    prepopulated_fields = {'slug': ('title_ru',)}
     
     class Media:
         js = (
-            # Добавляем JavaScript для живого предпросмотра slug
             'admin/js/prepopulate.js',
             'admin/js/prepopulate_init.js',
         )
 
     def get_prepopulated_fields(self, request, obj=None):
-        # Отключаем автоматическое заполнение для существующих объектов
         if obj:
             return {}
         return self.prepopulated_fields

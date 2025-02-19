@@ -50,7 +50,7 @@ THIRD_PARTY_APPS = [
     'channels',
 ]
 
-INSTALLED_APPS = [*DJANGO_APPS, *THIRD_PARTY_APPS, *PROJECT_APPS, 'django_filters']
+INSTALLED_APPS = [*DJANGO_APPS, *THIRD_PARTY_APPS, *PROJECT_APPS, 'django_filters', 'adminsortable2']
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
