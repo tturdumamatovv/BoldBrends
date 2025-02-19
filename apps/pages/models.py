@@ -193,7 +193,6 @@ class CompanyPostsItemsTarget(models.Model):
 class CompanyPostsItemsImages(models.Model):
     company_post_item = models.ForeignKey(CompanyPostsItems, verbose_name=_('Пост компании'), on_delete=models.CASCADE, related_name='images')
     title = models.CharField(verbose_name=_('Название'), max_length=255, help_text=_('Например: Фотография 1'))
-    image = models.FileField(verbose_name=_('Изображение'), upload_to='company_posts_images/')
     description = models.TextField(verbose_name=_('Описание'), help_text=_('Например: Фотография 1'))
 
     class Meta:
