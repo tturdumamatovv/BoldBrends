@@ -233,9 +233,9 @@ UNFOLD = {
                             "link": reverse_lazy("admin:pages_sitestatustype_changelist"),
                         },
                         {
-                            "title": _("Цель продвижения"),
+                            "title": _("Типы сайта"),
                             "icon": "Share",
-                            "link": reverse_lazy("admin:pages_purposepromotiontype_changelist"),
+                            "link": reverse_lazy("admin:pages_sitetype_changelist"),
                         },
                         {
                             "title": _("Услуги продвижения"),
@@ -251,7 +251,12 @@ UNFOLD = {
                             "title": _("Типы задач"),
                             "icon": "book",
                             "link": reverse_lazy("admin:pages_tasktype_changelist"),
-                        }
+                        },
+                        {
+                            "title": _("Типы соц. сетец"),
+                            "icon": "ios",
+                            "link": reverse_lazy("admin:pages_socialtype_changelist"),
+                        },
                     ]
                 }    
         ],

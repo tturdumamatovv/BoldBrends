@@ -41,10 +41,11 @@ from .models import (
     BusinessType,
     PromotionType,
     SiteStatusType,
-    PurposePromotionType,
+    SiteType,
     ServiceType,
     VideoType,
     TaskType,
+    SocialType,
 )
 
 @register(StaticPages)
@@ -253,8 +254,8 @@ class SiteStatusTypeTranslationOption(TranslationOptions):
     fields = ('name',)
 
 
-@register(PurposePromotionType)
-class PurposePromotionTypeTranslationOption(TranslationOptions):
+@register(SiteType)
+class SiteTypeTranslationOption(TranslationOptions):
     fields = ('name',)
 
 
@@ -270,4 +271,9 @@ class VideoTypeTranslationOption(TranslationOptions):
 
 @register(TaskType)
 class TaskTypeTranslationOption(TranslationOptions):
+    fields = ('name',)
+
+
+@register(SocialType)
+class SocialTypeTranslationOption(TranslationOptions):
     fields = ('name',)

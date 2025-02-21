@@ -46,11 +46,12 @@ from apps.pages.models import (
     BusinessType,
     PromotionType,
     SiteStatusType,
-    PurposePromotionType,
+    SiteType,
     ServiceType,
     VideoType,
     TaskType,
     CompanyPostsItemsImagesGallery,
+    SocialType
 )
 
 class MarketingDepartmentChaptersSerializer(serializers.ModelSerializer):
@@ -185,9 +186,9 @@ class SiteStatusTypeSerializer(serializers.ModelSerializer):
         fields = ('id', 'name')
 
 
-class PurposePromotionTypeSerializer(serializers.ModelSerializer):
+class SiteTypeSerializer(serializers.ModelSerializer):
     class Meta:
-        model = PurposePromotionType
+        model = SiteType
         fields = ('id', 'name')
 
 
@@ -209,6 +210,12 @@ class TaskTypeSerializer(serializers.ModelSerializer):
         fields = ('id', 'name')
 
 
+class SocialTypeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SocialType
+        fields = ('id', 'name')
+
+
 class ApplicationFormSerializer(serializers.ModelSerializer):
     business_type = serializers.PrimaryKeyRelatedField(many=True, queryset=BusinessType.objects.all())
     promotion_type = serializers.PrimaryKeyRelatedField(many=True, queryset=PromotionType.objects.all())
@@ -226,17 +233,17 @@ class ApplicationFromFirstSerializer(serializers.ModelSerializer):
 
 class ApplicationFromSecondSerializer(serializers.ModelSerializer):
     business_type = serializers.PrimaryKeyRelatedField(many=True, queryset=BusinessType.objects.all())
-    promotion_type = serializers.PrimaryKeyRelatedField(many=True, queryset=PromotionType.objects.all())
+    social_type = serializers.PrimaryKeyRelatedField(many=True, queryset=SocialType.objects.all())
 
     class Meta:
         model = ApplicationForm
-        fields = ('sender_name', 'sender_phone', 'sender_email', 'business_type', 'promotion_type', 'quantity_of_publications')
+        fields = ('sender_name', 'sender_phone', 'sender_email', 'business_type', 'social_type', 'quantity_of_publications')
 
 
 class ApplicationFromThirdSerializer(serializers.ModelSerializer):
     business_type = serializers.PrimaryKeyRelatedField(many=True, queryset=BusinessType.objects.all())
     site_status = serializers.PrimaryKeyRelatedField(many=True, queryset=SiteStatusType.objects.all())
-    purpose_of_promotion = serializers.PrimaryKeyRelatedField(many=True, queryset=PurposePromotionType.objects.all())
+    # purpose_of_promotion = serializers.PrimaryKeyRelatedField(many=True, queryset=PurposePromotionType.objects.all())
 
     class Meta:
         model = ApplicationForm
@@ -268,6 +275,15 @@ class ApplicationFromSixthSerializer(serializers.ModelSerializer):
     class Meta:
         model = ApplicationForm
         fields = ('sender_name', 'sender_phone', 'sender_email', 'business_type', 'task_type')
+
+
+class ApplicationFromSeventhSerializer(serializers.ModelSerializer):
+    business_type = serializers.PrimaryKeyRelatedField(many=True, queryset=BusinessType.objects.all())
+    site_type = serializers.PrimaryKeyRelatedField(many=True, queryset=SiteType.objects.all())
+
+    class Meta:
+        model = ApplicationForm
+        fields = ('sender_name', 'sender_phone', 'sender_email', 'business_type', 'site_type')
 
 
 class CompanyApplicationSerializer(serializers.ModelSerializer):

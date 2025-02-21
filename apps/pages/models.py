@@ -316,6 +316,17 @@ class PromotionType(models.Model):
         return self.name
 
 
+class SocialType(models.Model):
+    name = models.CharField(verbose_name=_("Название"), max_length=255, help_text=_("Например: Instagram"))
+
+    class Meta:
+        verbose_name = _("Тип соц. сетей")
+        verbose_name_plural = _("Типы соц. сетей")
+    
+    def __str__(self):
+        return self.name
+    
+
 class SiteStatusType(models.Model):
     name = models.CharField(verbose_name=_("Название"), max_length=255, help_text=_('Новый сайт'))
 
@@ -328,12 +339,12 @@ class SiteStatusType(models.Model):
         return self.name
 
 
-class PurposePromotionType(models.Model):
-    name = models.CharField(verbose_name=_("Название"), max_length=255, help_text=_('Реклама'))
+class SiteType(models.Model):
+    name = models.CharField(verbose_name=_("Название"), max_length=255, help_text=_('Лендинг'))
 
     class Meta:
-        verbose_name = _("Цель продвижения")
-        verbose_name_plural = _("Цель продвижения")
+        verbose_name = _("Тип сайта")
+        verbose_name_plural = _("Типы сайта")
         ordering = ['name']
 
     def __str__(self):
@@ -382,9 +393,11 @@ class ApplicationForm(models.Model):
     sender_email = models.EmailField(verbose_name=_('Email отправителя'), max_length=255, help_text=_('Например: john.doe@example.com'))
     business_type = models.ManyToManyField(BusinessType, verbose_name=_('Типы бизнеса'))
     promotion_type = models.ManyToManyField(PromotionType, verbose_name=_('Типы продвижения'))
+    social_type = models.ManyToManyField(SocialType, verbose_name=_('Типы соц. сетей'))
     quantity_of_publications = models.TextField(null=True, blank=True, verbose_name=_('Количество публикаций в месяц'))
     site_status = models.ManyToManyField(SiteStatusType, verbose_name=_("Статус сайта"))
-    purpose_of_promotion = models.ManyToManyField(PurposePromotionType, verbose_name=_("Цель продвижения"))
+    purpose_of_promotion = models.CharField(max_length=255, verbose_name=_("Цель продвижения"), null=True, blank=True)
+    site_type = models.ManyToManyField(SiteType, verbose_name=_("Типы сайта"))
     service_type = models.ManyToManyField(ServiceType, verbose_name=_("Услуги"))
     video_type = models.ManyToManyField(VideoType, verbose_name=_("Типы видео"))
     task_type = models.ManyToManyField(TaskType, verbose_name=_("Типы Задач"))

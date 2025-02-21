@@ -49,11 +49,12 @@ from .models import (
     BusinessType,
     PromotionType,
     SiteStatusType,
-    PurposePromotionType,
     ServiceType,
     VideoType,
     TaskType,
     CompanyPostsItemsImagesGallery,
+    SocialType,
+    SiteType,
 )
 
 class MarketingDepartmentChaptersInline(StackedInline, TranslationStackedInline):
@@ -236,7 +237,7 @@ class CompanyApplicationAdmin(ModelAdmin, TabbedTranslationAdmin):
 
 @admin.register(ApplicationForm)
 class ApplicationFormAdmin(ModelAdmin):
-    filter_horizontal = ['business_type', 'promotion_type', 'site_status', 'purpose_of_promotion', 'service_type', 'video_type', 'task_type']
+    filter_horizontal = ['business_type', 'promotion_type', 'site_status', 'service_type', 'video_type', 'task_type']
 
 
 @admin.register(StaticPages)
@@ -422,8 +423,8 @@ class SiteStatusTypeAdmin(ModelAdmin, TabbedTranslationAdmin):
     list_display = ['name']
 
 
-@admin.register(PurposePromotionType)
-class PurposePromotionTypeAdmin(ModelAdmin, TabbedTranslationAdmin):
+@admin.register(SiteType)
+class SiteTypeAdmin(ModelAdmin, TabbedTranslationAdmin):
     list_display = ['name']
 
 
@@ -439,4 +440,9 @@ class VideoTypeAdmin(ModelAdmin, TabbedTranslationAdmin):
 
 @admin.register(TaskType)
 class TaskTypeAdmin(ModelAdmin, TabbedTranslationAdmin):
+    list_display = ['name']
+
+
+@admin.register(SocialType)
+class SocialTypeAdmin(ModelAdmin, TabbedTranslationAdmin):
     list_display = ['name']

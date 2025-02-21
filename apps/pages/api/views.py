@@ -29,11 +29,12 @@ from apps.pages.models import (
     Tags,
     BusinessType,
     PromotionType,
-    PurposePromotionType,
+    SiteType,
     SiteStatusType,
     ServiceType,
     VideoType,
     TaskType,
+    SocialType,
     )
 
 from .serializers import (  
@@ -52,6 +53,7 @@ from .serializers import (
     ApplicationFromFourthSerializer,
     ApplicationFromFifthSerializer,
     ApplicationFromSixthSerializer,
+    ApplicationFromSeventhSerializer,
     StaticPagesSerializer,
     CompanyTeamSerializer,
     CompanyAdvertisingSerializer,
@@ -68,10 +70,11 @@ from .serializers import (
     BusinessTypeSerializer,
     PromotionTypeSerializer,
     SiteStatusTypeSerializer,
-    PurposePromotionTypeSerializer,
+    SiteTypeSerializer,
     ServiceTypeSerializer,
     VideoTypeSerializer,
-    TaskTypeSerializer
+    TaskTypeSerializer,
+    SocialTypeSerializer
     )
 
 
@@ -315,6 +318,31 @@ class ApplicationFormSixthView(generics.CreateAPIView):
         )
 
 
+class ApplicationFormSeventhView(generics.CreateAPIView):
+    serializer_class = ApplicationFromSeventhSerializer
+    
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(
+                {
+                    "status": "success",
+                    "message": "Заявка успешно отправлена",
+                    "data": serializer.data
+                }, 
+                status=status.HTTP_201_CREATED
+            )
+        return Response(
+            {
+                "status": "error",
+                "message": "Ошибка при отправке заявки",
+                "errors": serializer.errors
+            }, 
+            status=status.HTTP_400_BAD_REQUEST
+        )
+
+
 class StaticPagesListView(generics.ListAPIView):
     serializer_class = StaticPagesSerializer
     queryset = StaticPages.objects.all()
@@ -470,9 +498,9 @@ class SiteStatusTypeListView(generics.ListAPIView):
     queryset = SiteStatusType.objects.all()
 
 
-class PurposePromotionTypeListView(generics.ListAPIView):
-    serializer_class = PurposePromotionTypeSerializer
-    queryset = PurposePromotionType.objects.all()
+class SiteTypeListView(generics.ListAPIView):
+    serializer_class = SiteTypeSerializer
+    queryset = SiteType.objects.all()
 
 
 class ServiceTypeListView(generics.ListAPIView):
@@ -488,6 +516,11 @@ class VideoTypeListView(generics.ListAPIView):
 class TaskTypeListView(generics.ListAPIView):
     serializer_class = TaskTypeSerializer
     queryset = TaskType.objects.all()
+
+
+class SocialTypeListView(generics.ListAPIView):
+    serializer_class = SocialTypeSerializer
+    queryset = SocialType.objects.all()
 
 
 class CompanyApplicationListView(generics.ListAPIView):
