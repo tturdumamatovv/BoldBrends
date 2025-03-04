@@ -701,3 +701,27 @@ class CompanyPostsItemsImagesGallery(models.Model):
 
     def __str__(self):
         return f"Изображение для {self.post_image.title}"
+
+
+class BusinessCards(models.Model):
+    title = models.CharField(verbose_name=_('Название'), max_length=255, help_text=_('Например: Визитки'))
+
+    class Meta:
+        verbose_name = _('Визитка')
+        verbose_name_plural = _('Визитки')
+
+    def __str__(self):
+        return f"Изображение для {self.title}"
+    
+
+class BusinessCardImages(models.Model):
+    businesscards = models.ForeignKey(BusinessCards, verbose_name=_("Изображение визитки"), on_delete=models.CASCADE, related_name='businesscards')
+    image = models.FileField(verbose_name=_('Изображение'), upload_to='business_card_images/')
+    
+    class Meta:
+        verbose_name = _('Изображение визитки')
+        verbose_name_plural = _('Изображения визитки')
+
+    def __str__(self):
+        return f"Изображение для {self.businesscards.title}"
+    

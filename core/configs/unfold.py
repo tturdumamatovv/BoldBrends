@@ -208,57 +208,62 @@ UNFOLD = {
                         "title": _("Услуги которые мы предлагаем"),
                         "icon": "info",
                         "link": reverse_lazy("admin:pages_serviceoffering_changelist"),
+                    },
+                    {
+                        "title": _("Визитки"),
+                        "icon": "card_membership",
+                        "link": reverse_lazy("admin:pages_businesscards_changelist"),
                     }
                 ],
-                },
-                {
-                    "title": _("Настройки"),
-                    "icon": "settings",
-                    "collapsible": True,
-                    "collapsed": True,
-                    "items": [
-                        {
-                            "title": _("Типы бизнеса"),
-                            "icon": "business",
-                            "link": reverse_lazy("admin:pages_businesstype_changelist"),
-                        },
-                        {
-                            "title": _("Типы продвижения"),
-                            "icon": "publish",
-                            "link": reverse_lazy("admin:pages_promotiontype_changelist"),
-                        },
-                        {
-                            "title": _("Типы статуса сайта"),
-                            "icon": "web",
-                            "link": reverse_lazy("admin:pages_sitestatustype_changelist"),
-                        },
-                        {
-                            "title": _("Типы сайта"),
-                            "icon": "Share",
-                            "link": reverse_lazy("admin:pages_sitetype_changelist"),
-                        },
-                        {
-                            "title": _("Услуги продвижения"),
-                            "icon": "sms",
-                            "link": reverse_lazy("admin:pages_servicetype_changelist"),
-                        },
-                        {
-                            "title": _("Видео продвижения"),
-                            "icon": "pause",
-                            "link": reverse_lazy("admin:pages_videotype_changelist"),
-                        },
-                        {
-                            "title": _("Типы задач"),
-                            "icon": "book",
-                            "link": reverse_lazy("admin:pages_tasktype_changelist"),
-                        },
-                        {
-                            "title": _("Типы соц. сетец"),
-                            "icon": "ios",
-                            "link": reverse_lazy("admin:pages_socialtype_changelist"),
-                        },
-                    ]
-                }    
+            },
+            {
+                "title": _("Настройки"),
+                "icon": "settings",
+                "collapsible": True,
+                "collapsed": True,
+                "items": [
+                    {
+                        "title": _("Типы бизнеса"),
+                        "icon": "business",
+                        "link": reverse_lazy("admin:pages_businesstype_changelist"),
+                    },
+                    {
+                        "title": _("Типы продвижения"),
+                        "icon": "publish",
+                        "link": reverse_lazy("admin:pages_promotiontype_changelist"),
+                    },
+                    {
+                        "title": _("Типы статуса сайта"),
+                        "icon": "web",
+                        "link": reverse_lazy("admin:pages_sitestatustype_changelist"),
+                    },
+                    {
+                        "title": _("Типы сайта"),
+                        "icon": "Share",
+                        "link": reverse_lazy("admin:pages_sitetype_changelist"),
+                    },
+                    {
+                        "title": _("Услуги продвижения"),
+                        "icon": "sms",
+                        "link": reverse_lazy("admin:pages_servicetype_changelist"),
+                    },
+                    {
+                        "title": _("Видео продвижения"),
+                        "icon": "pause",
+                        "link": reverse_lazy("admin:pages_videotype_changelist"),
+                    },
+                    {
+                        "title": _("Типы задач"),
+                        "icon": "book",
+                        "link": reverse_lazy("admin:pages_tasktype_changelist"),
+                    },
+                    {
+                        "title": _("Типы соц. сетец"),
+                        "icon": "ios",
+                        "link": reverse_lazy("admin:pages_socialtype_changelist"),
+                    },
+                ]
+            }    
         ],
     },
     # "TABS": [

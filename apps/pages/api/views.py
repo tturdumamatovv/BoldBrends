@@ -35,6 +35,7 @@ from apps.pages.models import (
     VideoType,
     TaskType,
     SocialType,
+    BusinessCards,
     )
 
 from .serializers import (  
@@ -74,7 +75,8 @@ from .serializers import (
     ServiceTypeSerializer,
     VideoTypeSerializer,
     TaskTypeSerializer,
-    SocialTypeSerializer
+    SocialTypeSerializer,
+    BusinessCardsSerializer,
     )
 
 
@@ -532,3 +534,10 @@ class CompanyApplicationDetailView(generics.RetrieveAPIView):
     serializer_class = CompanyApplicationSerializer
     queryset = CompanyApplication.objects.all()
     lookup_field = 'id'
+
+
+class BusinessCardsView(generics.RetrieveAPIView):
+    serializer_class = BusinessCardsSerializer
+    
+    def get_object(self):
+        return BusinessCards.objects.prefetch_related('businesscards').first()

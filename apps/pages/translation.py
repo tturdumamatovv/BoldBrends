@@ -46,6 +46,7 @@ from .models import (
     VideoType,
     TaskType,
     SocialType,
+    BusinessCards
 )
 
 @register(StaticPages)
@@ -277,3 +278,9 @@ class TaskTypeTranslationOption(TranslationOptions):
 @register(SocialType)
 class SocialTypeTranslationOption(TranslationOptions):
     fields = ('name',)
+
+
+@register(BusinessCards)
+class BusinessCardsTranslationOption(TranslationOptions):
+    fields = ('title',)
+    

@@ -55,6 +55,8 @@ from .models import (
     CompanyPostsItemsImagesGallery,
     SocialType,
     SiteType,
+    BusinessCards,
+    BusinessCardImages,
 )
 
 class MarketingDepartmentChaptersInline(StackedInline, TranslationStackedInline):
@@ -446,3 +448,14 @@ class TaskTypeAdmin(ModelAdmin, TabbedTranslationAdmin):
 @admin.register(SocialType)
 class SocialTypeAdmin(ModelAdmin, TabbedTranslationAdmin):
     list_display = ['name']
+
+
+class BusinessCardImagesInline(TabularInline):
+    model = BusinessCardImages
+    extra = 1
+
+
+@admin.register(BusinessCards)
+class BusinessCardsAdmin(ModelAdmin, TabbedTranslationAdmin):
+    list_display = ('title',)
+    inlines = [BusinessCardImagesInline]

@@ -51,7 +51,9 @@ from apps.pages.models import (
     VideoType,
     TaskType,
     CompanyPostsItemsImagesGallery,
-    SocialType
+    SocialType,
+    BusinessCards,
+    BusinessCardImages
 )
 
 class MarketingDepartmentChaptersSerializer(serializers.ModelSerializer):
@@ -500,3 +502,17 @@ class CompanyPostsItemsDetailSerializer(serializers.ModelSerializer):
             'target'
 
         )
+
+
+class BusinessCardImagesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = BusinessCardImages
+        fields = ('image',)
+
+
+class BusinessCardsSerializer(serializers.ModelSerializer):
+    businesscards = BusinessCardImagesSerializer(many=True, read_only=True)
+    
+    class Meta:
+        model = BusinessCards
+        fields = ('title', 'businesscards')

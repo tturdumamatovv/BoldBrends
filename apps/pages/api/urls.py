@@ -39,6 +39,7 @@ from .views import (
     TaskTypeListView,
     SocialTypeListView,
     ApplicationFormSeventhView,
+    BusinessCardsView,
 )
 
 urlpatterns = [
@@ -81,4 +82,5 @@ urlpatterns = [
     path('social-types/', SocialTypeListView.as_view(), name='social_types'),
     path('company-applications/', CompanyApplicationListView.as_view(), name='company-applications-list'),
     path('company-applications/<int:id>/', CompanyApplicationDetailView.as_view(), name='company-application-detail'),
+    path('business-cards/', BusinessCardsView.as_view(), name='business-cards'),
 ]
