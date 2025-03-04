@@ -5,5 +5,7 @@ from .serializers import BannersSerializer
 
 
 class BannersView(ListAPIView):
-    queryset = Banners.objects.filter(is_active=True)
     serializer_class = BannersSerializer
+    
+    def get_queryset(self):
+        return Banners.objects.filter(is_active=True).select_related('bannertext')

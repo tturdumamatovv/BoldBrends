@@ -15,3 +15,17 @@ class Banners(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class BannerText(models.Model):
+    banner = models.OneToOneField(Banners, verbose_name=_("Баннер"), on_delete=models.CASCADE)
+    text = models.TextField(verbose_name=_("Текст"), help_text=_("Новый кейс на сайте!"), null=True, blank=True)
+    link = models.URLField(verbose_name=_("Ссылка"), help_text=_("Например: https://example.com/case/"), null=True, blank=True)
+    
+    class Meta:
+        verbose_name = _('Текст баннера')
+        verbose_name_plural = _('Тексты баннеров')
+
+    def __str__(self):
+        return f"Текст для баннера: {self.banner.title}"
+    
