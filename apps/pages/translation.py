@@ -46,7 +46,9 @@ from .models import (
     VideoType,
     TaskType,
     SocialType,
-    BusinessCards
+    BusinessCards,
+    PrintingService,
+    PrintLogo
 )
 
 @register(StaticPages)
@@ -282,5 +284,10 @@ class SocialTypeTranslationOption(TranslationOptions):
 
 @register(BusinessCards)
 class BusinessCardsTranslationOption(TranslationOptions):
+    fields = ('title',)
+
+
+@register(PrintingService)
+class PrintingServiceTranslationOptions(TranslationOptions):
     fields = ('title',)
     

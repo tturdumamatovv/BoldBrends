@@ -36,6 +36,7 @@ from apps.pages.models import (
     TaskType,
     SocialType,
     BusinessCards,
+    PrintingService,
     )
 
 from .serializers import (  
@@ -77,6 +78,7 @@ from .serializers import (
     TaskTypeSerializer,
     SocialTypeSerializer,
     BusinessCardsSerializer,
+    PrintingServiceSerializer,
     )
 
 
@@ -541,3 +543,10 @@ class BusinessCardsView(generics.RetrieveAPIView):
     
     def get_object(self):
         return BusinessCards.objects.prefetch_related('businesscards').first()
+
+
+class PrintingServiceView(generics.RetrieveAPIView):
+    serializer_class = PrintingServiceSerializer
+    
+    def get_object(self):
+        return PrintingService.objects.prefetch_related('items').first()

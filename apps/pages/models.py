@@ -724,4 +724,26 @@ class BusinessCardImages(models.Model):
 
     def __str__(self):
         return f"Изображение для {self.businesscards.title}"
-    
+
+
+class PrintingService(models.Model):
+    title = models.CharField(verbose_name=_('Название'), max_length=255, help_text=_('Например: Что мы печатаем?'))
+
+    class Meta:
+        verbose_name = _('Услуга печати логотипа')
+        verbose_name_plural = _('Услуги печати логотипа')
+
+    def __str__(self):
+        return f"Лого для {self.title}"
+
+
+class PrintLogo(models.Model):
+    printing_service = models.ForeignKey(PrintingService, on_delete=models.CASCADE, related_name='items')
+    logo = models.FileField(verbose_name=_('Логотип'), upload_to='print_logos/')
+
+    class Meta:
+        verbose_name = _('Логотип')
+        verbose_name_plural = _('Логотипы')
+
+    def __str__(self):
+        return f"Лого для {self.printing_service.title}"

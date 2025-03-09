@@ -213,6 +213,11 @@ UNFOLD = {
                         "title": _("Визитки"),
                         "icon": "card_membership",
                         "link": reverse_lazy("admin:pages_businesscards_changelist"),
+                    },
+                    {
+                        "title": _("Печатные услуги"),
+                        "icon": "print",
+                        "link": reverse_lazy("admin:pages_printingservice_changelist"),
                     }
                 ],
             },
