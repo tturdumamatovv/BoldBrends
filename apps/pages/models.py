@@ -501,7 +501,7 @@ class CompanyVideoReviews(models.Model):
 
 class CompanyVideoReviewsItems(models.Model):
     company_video_review = models.ForeignKey(CompanyVideoReviews, verbose_name=_('Видеоотзывы от наших клиентов'), on_delete=models.CASCADE, related_name='items')
-    video = models.FileField(verbose_name=_('Видео'), upload_to='company_video_reviews_videos/')
+    video = models.URLField(verbose_name=_('Видео'), help_text=_("Ссылка видео с ютуба"))
 
     class Meta:
         verbose_name = _('Видеоотзывы от наших клиентов')
