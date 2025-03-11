@@ -37,6 +37,7 @@ from apps.pages.models import (
     SocialType,
     BusinessCards,
     PrintingService,
+    DesignDevelopment,
     )
 
 from .serializers import (  
@@ -79,6 +80,7 @@ from .serializers import (
     SocialTypeSerializer,
     BusinessCardsSerializer,
     PrintingServiceSerializer,
+    DesignDevelopmentSerializer,
     )
 
 
@@ -550,3 +552,10 @@ class PrintingServiceView(generics.RetrieveAPIView):
     
     def get_object(self):
         return PrintingService.objects.prefetch_related('items').first()
+
+
+class DesignDevelopmentView(generics.RetrieveAPIView):
+    serializer_class = DesignDevelopmentSerializer
+    
+    def get_object(self):
+        return DesignDevelopment.objects.prefetch_related('chapters').first()

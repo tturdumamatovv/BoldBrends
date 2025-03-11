@@ -218,7 +218,12 @@ UNFOLD = {
                         "title": _("Печатные услуги"),
                         "icon": "print",
                         "link": reverse_lazy("admin:pages_printingservice_changelist"),
-                    }
+                    },
+                    {
+                        "title": _("Дизайн и разработка"),
+                        "icon": "design_services",
+                        "link": reverse_lazy("admin:pages_designdevelopment_changelist"),
+                    },
                 ],
             },
             {

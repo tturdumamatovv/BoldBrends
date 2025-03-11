@@ -55,7 +55,9 @@ from apps.pages.models import (
     BusinessCards,
     BusinessCardImages,
     PrintingService,
-    PrintLogo
+    PrintLogo,
+    DesignDevelopment,
+    DesignDevelopmentChapters
 )
 
 class MarketingDepartmentChaptersSerializer(serializers.ModelSerializer):
@@ -532,3 +534,17 @@ class PrintingServiceSerializer(serializers.ModelSerializer):
     class Meta:
         model = PrintingService
         fields = ('title', 'items')
+
+
+class DesignDevelopmentChaptersSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DesignDevelopmentChapters
+        fields = ('number', 'title')
+
+
+class DesignDevelopmentSerializer(serializers.ModelSerializer):
+    chapters = DesignDevelopmentChaptersSerializer(many=True, read_only=True)
+    
+    class Meta:
+        model = DesignDevelopment
+        fields = ('title', 'sub_title', 'chapters')

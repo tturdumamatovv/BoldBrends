@@ -48,7 +48,9 @@ from .models import (
     SocialType,
     BusinessCards,
     PrintingService,
-    PrintLogo
+    PrintLogo,
+    DesignDevelopment,
+    DesignDevelopmentChapters
 )
 
 @register(StaticPages)
@@ -289,5 +291,15 @@ class BusinessCardsTranslationOption(TranslationOptions):
 
 @register(PrintingService)
 class PrintingServiceTranslationOptions(TranslationOptions):
+    fields = ('title',)
+
+
+@register(DesignDevelopment)
+class DesignDevelopmentTranslationOptions(TranslationOptions):
+    fields = ('title', 'sub_title')
+
+
+@register(DesignDevelopmentChapters)
+class DesignDevelopmentChaptersTranslationOptions(TranslationOptions):
     fields = ('title',)
     

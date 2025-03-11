@@ -596,7 +596,7 @@ class VideoProductionItems(models.Model):
     logo = models.FileField(verbose_name=_('Логотип'), upload_to='video_production_logos/')
     title = models.CharField(verbose_name=_('Название'), max_length=255, help_text=_('Например: В BoldBrends мы уверены'))
     description = models.TextField(verbose_name=_('Описание'), help_text=_('Например: С более чем 10-летним опытом...'))
-    video = models.FileField(verbose_name=_('Видео'), upload_to='video_production_videos/')
+    video = models.URLField(verbose_name=_('Видео'), help_text=_("Ссылка на видео"))
 
     class Meta:
         verbose_name = _('Видеопродукция')
@@ -747,3 +747,29 @@ class PrintLogo(models.Model):
 
     def __str__(self):
         return f"Лого для {self.printing_service.title}"
+
+
+class DesignDevelopment(models.Model):
+    title = models.CharField(verbose_name=_('Название'), max_length=255, help_text=_('Например: Дизайн и Разработка'))
+    sub_title = models.CharField(verbose_name=_('Подзаголовок'), max_length=255, help_text=_('Например: Мы создадим не просто мечты'))
+    
+    class Meta:
+        verbose_name = _('Дизайн и разработка')
+        verbose_name_plural = _('Дизайн и разработки')
+
+    def __str__(self):
+        return self.title
+
+
+class DesignDevelopmentChapters(models.Model):
+    design_development = models.ForeignKey(DesignDevelopment, verbose_name=_('Отдел маркетинга'), on_delete=models.CASCADE, related_name='chapters')
+    number = models.CharField(verbose_name=_('Номер главы'), max_length=255, help_text=_('Например: 01'))
+    title = models.CharField(verbose_name=_('Название главы'), max_length=255, help_text=_('Например: Глава 1'))
+
+    class Meta:
+        verbose_name = _('Глава дизайн и разработка')
+        verbose_name_plural = _('Главы дизайн и разработки')
+        ordering = ['-id']
+
+    def __str__(self):
+        return f'{self.title} - {self.number}'

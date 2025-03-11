@@ -41,6 +41,7 @@ from .views import (
     ApplicationFormSeventhView,
     BusinessCardsView,
     PrintingServiceView,
+    DesignDevelopmentView,
 )
 
 urlpatterns = [
@@ -85,4 +86,5 @@ urlpatterns = [
     path('company-applications/<int:id>/', CompanyApplicationDetailView.as_view(), name='company-application-detail'),
     path('business-cards/', BusinessCardsView.as_view(), name='business-cards'),
     path('printing-service/', PrintingServiceView.as_view(), name='printing-service'),
+    path('design-development/', DesignDevelopmentView.as_view(), name='design-development'),
 ]

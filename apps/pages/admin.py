@@ -59,6 +59,8 @@ from .models import (
     BusinessCardImages,
     PrintingService,
     PrintLogo,
+    DesignDevelopment,
+    DesignDevelopmentChapters,
 )
 
 class MarketingDepartmentChaptersInline(StackedInline, TranslationStackedInline):
@@ -475,6 +477,23 @@ class PrintingServiceAdmin(ModelAdmin, TabbedTranslationAdmin):
 
     def has_add_permission(self, request):
         return not PrintingService.objects.exists()
+    
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+
+class DesignDevelopmentChaptersInline(StackedInline, TranslationStackedInline):
+    model = DesignDevelopmentChapters
+    extra = 0
+
+
+@admin.register(DesignDevelopment)
+class DesignDevelopmentAdmin(ModelAdmin, TabbedTranslationAdmin):
+    inlines = [DesignDevelopmentChaptersInline]
+    list_display = ('title',)
+
+    def has_add_permission(self, request):
+        return not DesignDevelopment.objects.exists()
     
     def has_delete_permission(self, request, obj=None):
         return False
