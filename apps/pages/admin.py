@@ -305,7 +305,8 @@ class CompanyVideoReviewsAdmin(ModelAdmin, TabbedTranslationAdmin):
     inlines = [CompanyVideoReviewsItemsInline]
 
     def has_add_permission(self, request):
-        return not CompanyVideoReviews.objects.exists()
+        # Allow creating up to 2 instances
+        return CompanyVideoReviews.objects.count() < 2
     
     def has_delete_permission(self, request, obj=None):
         return False

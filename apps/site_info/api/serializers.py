@@ -33,5 +33,5 @@ class CompanyInfoSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CompanyInfo
-        fields = ('logo', 'description', 'whatsapp_logo', 'whatsapp_link', 'whatsapp_text', 'work_time', 'video',
-                  'addresses', 'phones', 'emails', 'social_networks')
+        fields = ('logo', 'description', 'whatsapp_logo', 'whatsapp_link', 'whatsapp_text', 'work_time', 'video'
+                  , 'production_video', 'addresses', 'phones', 'emails', 'social_networks')

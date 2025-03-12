@@ -378,13 +378,13 @@ class CompanyAdvertisingView(generics.RetrieveAPIView):
         ).first()
 
 
-class CompanyVideoReviewsView(generics.RetrieveAPIView):
+class CompanyVideoReviewsView(generics.ListAPIView):
     serializer_class = CompanyVideoReviewsSerializer
     
-    def get_object(self):
+    def get_queryset(self):
         return CompanyVideoReviews.objects.prefetch_related(
             'items',
-        ).first()
+        ).all()[:2]
     
 
 class FAQView(generics.ListAPIView):
