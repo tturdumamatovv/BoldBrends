@@ -113,7 +113,7 @@ class CompanyServicesItemsSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CompanyServicesItems
-        fields = ('title', 'image', 'tags')
+        fields = ('title', 'image', 'tags', 'link')
 
 
 class CompanyServicesSerializer(serializers.ModelSerializer):

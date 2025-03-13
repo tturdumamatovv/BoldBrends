@@ -122,6 +122,7 @@ class CompanyServicesItems(models.Model):
     title = models.CharField(verbose_name=_('Название'), max_length=255, help_text=_('Например: Маркетинговая стратегия'))
     image = models.FileField(verbose_name=_('Изображение'), upload_to='company_services_images/')
     tags = models.ManyToManyField(Tags, verbose_name=_('Теги'), related_name='items')
+    link = models.URLField(verbose_name=_("Ссылка для переноса"), null=True, blank=True)
 
 
     class Meta:
