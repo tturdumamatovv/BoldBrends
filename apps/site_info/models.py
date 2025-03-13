@@ -9,9 +9,9 @@ class CompanyInfo(models.Model):
     whatsapp_link = models.URLField(verbose_name=_('Whatsapp ссылка'), help_text=_('Например: https://wa.me/996555555555'))
     whatsapp_text = models.CharField(verbose_name=_('Текст Whatsapp'), help_text=_('Например: Напишите нам на Whatsapp'), max_length=255)
     work_time = models.CharField(verbose_name=_('Время работы'), help_text=_('Например: Пн-Пт: 09:00-18:00'), max_length=255)
-    video = models.FileField(upload_to='company/video/', verbose_name=_('Видео'), help_text=_('Загрузите видео для главной страницы'))
-    production_video = models.FileField(upload_to='company/video/', verbose_name=_('Видео (для страницы Видеопродакшн)')
-                                        , help_text=_('Загрузите видео для страницы Видеопродакшн'), null=True, blank=True)
+    video = models.URLField(verbose_name=_('Видео'), help_text=_('Вставьте ссылку видео для главной страницы'))
+    production_video = models.URLField(verbose_name=_('Видео (для страницы Видеопродакшн)')
+                                        , help_text=_('Вставьте ссылку видео для страницы Видеопродакшн'), null=True, blank=True)
 
 
     class Meta:
