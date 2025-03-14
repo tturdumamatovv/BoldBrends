@@ -61,6 +61,8 @@ from .models import (
     PrintLogo,
     DesignDevelopment,
     DesignDevelopmentChapters,
+    Article,
+    ArticlePosts,
 )
 
 class MarketingDepartmentChaptersInline(StackedInline, TranslationStackedInline):
@@ -303,13 +305,44 @@ class CompanyVideoReviewsItemsInline(StackedInline):
 @admin.register(CompanyVideoReviews)
 class CompanyVideoReviewsAdmin(ModelAdmin, TabbedTranslationAdmin):
     inlines = [CompanyVideoReviewsItemsInline]
+    list_display = ('title', 'video_type')
+    list_filter = ('video_type',)
 
     def has_add_permission(self, request):
-        # Allow creating up to 2 instances
-        return CompanyVideoReviews.objects.count() < 2
+        # Проверяем для каждого типа видео
+        existing_types = set(CompanyVideoReviews.objects.values_list('video_type', flat=True))
+        # Если есть все типы видео, запрещаем создание
+        all_types = {'other', 'production', 'blog'}
+        return not all_types.issubset(existing_types)
     
     def has_delete_permission(self, request, obj=None):
-        return False
+        return True
+
+    def get_form(self, request, obj=None, **kwargs):
+        form = super().get_form(request, obj, **kwargs)
+        if not obj:  # Если создаем новую запись
+            # Получаем уже использованные типы
+            used_types = set(CompanyVideoReviews.objects.values_list('video_type', flat=True))
+            # Оставляем только неиспользованные типы в выборе
+            choices = [
+                choice for choice in form.base_fields['video_type'].choices 
+                if choice[0] not in used_types and choice[0] != '---------'
+            ]
+            if choices:
+                form.base_fields['video_type'].choices = choices
+                form.base_fields['video_type'].initial = choices[0][0]  # Устанавливаем первый доступный тип по умолчанию
+                form.base_fields['video_type'].required = True
+            else:
+                form.base_fields['video_type'].widget.attrs['disabled'] = True
+        return form
+
+    def save_model(self, request, obj, form, change):
+        if not change:  # Если создаем новую запись
+            # Проверяем, не существует ли уже запись с таким типом
+            if CompanyVideoReviews.objects.filter(video_type=obj.video_type).exists():
+                from django.core.exceptions import ValidationError
+                raise ValidationError(f'Видео отзыв с типом "{obj.get_video_type_display()}" уже существует')
+        super().save_model(request, obj, form, change)
 
 
 @admin.register(FAQ)
@@ -495,6 +528,23 @@ class DesignDevelopmentAdmin(ModelAdmin, TabbedTranslationAdmin):
 
     def has_add_permission(self, request):
         return not DesignDevelopment.objects.exists()
+    
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+
+class ArticlePostsInline(StackedInline, TranslationStackedInline):
+    model = ArticlePosts
+    extra = 0
+
+
+@admin.register(Article)
+class ArticleAdmin(ModelAdmin, TabbedTranslationAdmin):
+    inlines = [ArticlePostsInline]
+    list_display = ('title',)
+
+    def has_add_permission(self, request):
+        return not Article.objects.exists()
     
     def has_delete_permission(self, request, obj=None):
         return False

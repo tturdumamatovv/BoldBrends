@@ -38,6 +38,8 @@ from apps.pages.models import (
     BusinessCards,
     PrintingService,
     DesignDevelopment,
+    Article,
+    ArticlePosts,
     )
 
 from .serializers import (  
@@ -81,6 +83,7 @@ from .serializers import (
     BusinessCardsSerializer,
     PrintingServiceSerializer,
     DesignDevelopmentSerializer,
+    ArticleSerializer,
     )
 
 
@@ -382,9 +385,15 @@ class CompanyVideoReviewsView(generics.ListAPIView):
     serializer_class = CompanyVideoReviewsSerializer
     
     def get_queryset(self):
-        return CompanyVideoReviews.objects.prefetch_related(
-            'items',
-        ).all()[:2]
+        video_type = self.request.query_params.get('type')
+        queryset = CompanyVideoReviews.objects.prefetch_related('items')
+        
+        if video_type:
+            # Если указан тип, фильтруем по нему
+            return queryset.filter(video_type=video_type)
+        
+        # Если тип не указан, возвращаем все
+        return queryset.all()
     
 
 class FAQView(generics.ListAPIView):
@@ -559,3 +568,12 @@ class DesignDevelopmentView(generics.RetrieveAPIView):
     
     def get_object(self):
         return DesignDevelopment.objects.prefetch_related('chapters').first()
+
+
+class ArticleView(generics.RetrieveAPIView):
+    serializer_class = ArticleSerializer
+    
+    def get_object(self):
+        return Article.objects.prefetch_related(
+            'articleposts_set'
+        ).first()

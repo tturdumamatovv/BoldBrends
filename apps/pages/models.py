@@ -489,12 +489,32 @@ class CompanyAdvertisingItems(models.Model):
 
 
 class CompanyVideoReviews(models.Model):
+    VIDEO_TYPES = (
+        ('other', _('Отзывы для остальных стр')),
+        ('production', _('Отзывы для видеопродакшен страницы')),
+        ('blog', _('Видео для блога')),
+    )
+    
     title = models.CharField(verbose_name=_('Название'), max_length=255, help_text=_('Например: Видеоотзывы от наших клиентов'))
     sub_title = models.CharField(verbose_name=_('Подзаголовок'), max_length=255, help_text=_('Например: Что говорят наши клиенты о нас'))
+    video_type = models.CharField(
+        verbose_name=_('Тип видео'), 
+        max_length=20, 
+        choices=VIDEO_TYPES, 
+        null=True, 
+        blank=True,
+        unique=True
+    )
 
     class Meta:
         verbose_name = _('Видеоотзывы от наших клиентов')
         verbose_name_plural = _('Видеоотзывы от наших клиентов')
+        constraints = [
+            models.UniqueConstraint(
+                fields=['video_type'],
+                name='unique_video_type'
+            )
+        ]
 
     def __str__(self):
         return self.title
@@ -774,3 +794,34 @@ class DesignDevelopmentChapters(models.Model):
 
     def __str__(self):
         return f'{self.title} - {self.number}'
+    
+
+class Article(models.Model):
+    title = models.CharField(verbose_name=_('Название'), max_length=255, help_text=_('Например: Статьи'))
+    description = models.TextField(verbose_name=_('Описание'), help_text=_('Например: Статьи что помогут вам следить за новостями и нашими работами'))
+
+
+    class Meta:
+        verbose_name = _('Статья')
+        verbose_name_plural = _('Статьи')
+
+    def __str__(self):
+        return self.title
+
+
+class ArticlePosts(models.Model):
+    article = models.ForeignKey(Article, verbose_name=_("Статьи"), on_delete=models.CASCADE)
+    image = models.FileField(upload_to='article_posts/', verbose_name=_("Изображение"), help_text=_("Загрузите изображение"))
+    title = models.CharField(max_length=255, verbose_name=_("Название"), help_text=_("Статья 1"))
+    description = models.TextField(verbose_name=_("Описание"), help_text=_("Описание для статьи 1"))
+    date = models.DateField(auto_now_add=True, verbose_name=_("Дата создания"))
+    link = models.URLField(verbose_name=_("Ссылка от яндекс дзен"))
+
+
+    class Meta:
+        verbose_name = _('Пост статьи')
+        verbose_name_plural = _('Посты статьи')
+
+    def __str__(self):
+        return self.title
+    

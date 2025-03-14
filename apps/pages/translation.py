@@ -50,7 +50,9 @@ from .models import (
     PrintingService,
     PrintLogo,
     DesignDevelopment,
-    DesignDevelopmentChapters
+    DesignDevelopmentChapters,
+    Article,
+    ArticlePosts
 )
 
 @register(StaticPages)
@@ -302,4 +304,14 @@ class DesignDevelopmentTranslationOptions(TranslationOptions):
 @register(DesignDevelopmentChapters)
 class DesignDevelopmentChaptersTranslationOptions(TranslationOptions):
     fields = ('title',)
+
+
+@register(Article)
+class ArticleTranslationOptions(TranslationOptions):
+    fields = ('title', 'description')
+
+
+@register(ArticlePosts)
+class ArticlePostsTranslationOptions(TranslationOptions):
+    fields = ('title', 'description')
     

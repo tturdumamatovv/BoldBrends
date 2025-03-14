@@ -57,7 +57,9 @@ from apps.pages.models import (
     PrintingService,
     PrintLogo,
     DesignDevelopment,
-    DesignDevelopmentChapters
+    DesignDevelopmentChapters,
+    Article,
+    ArticlePosts
 )
 
 class MarketingDepartmentChaptersSerializer(serializers.ModelSerializer):
@@ -340,10 +342,11 @@ class CompanyVideoReviewsItemsSerializer(serializers.ModelSerializer):
 
 class CompanyVideoReviewsSerializer(serializers.ModelSerializer):
     items = CompanyVideoReviewsItemsSerializer(many=True, read_only=True)
+    video_type = serializers.CharField(source='get_video_type_display')
 
     class Meta:
         model = CompanyVideoReviews
-        fields = ('title', 'sub_title', 'items')
+        fields = ('title', 'sub_title', 'items', 'video_type')
 
 
 class FAQSerializer(serializers.ModelSerializer):
@@ -548,3 +551,17 @@ class DesignDevelopmentSerializer(serializers.ModelSerializer):
     class Meta:
         model = DesignDevelopment
         fields = ('title', 'sub_title', 'chapters')
+
+
+class ArticlePostsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ArticlePosts
+        fields = ('image', 'title', 'description', 'date', 'link')
+
+
+class ArticleSerializer(serializers.ModelSerializer):
+    posts = ArticlePostsSerializer(source='articleposts_set', many=True, read_only=True)
+
+    class Meta:
+        model = Article
+        fields = ('title', 'description', 'posts')

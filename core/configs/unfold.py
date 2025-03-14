@@ -224,6 +224,11 @@ UNFOLD = {
                         "icon": "design_services",
                         "link": reverse_lazy("admin:pages_designdevelopment_changelist"),
                     },
+                    {
+                        "title": _("Статьи"),
+                        "icon": "article",
+                        "link": reverse_lazy("admin:pages_article_changelist"),
+                    },
                 ],
             },
             {

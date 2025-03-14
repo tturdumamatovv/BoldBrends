@@ -42,6 +42,7 @@ from .views import (
     BusinessCardsView,
     PrintingServiceView,
     DesignDevelopmentView,
+    ArticleView,
 )
 
 urlpatterns = [
@@ -87,4 +88,5 @@ urlpatterns = [
     path('business-cards/', BusinessCardsView.as_view(), name='business-cards'),
     path('printing-service/', PrintingServiceView.as_view(), name='printing-service'),
     path('design-development/', DesignDevelopmentView.as_view(), name='design-development'),
+    path('articles/', ArticleView.as_view(), name='articles'),
 ]
