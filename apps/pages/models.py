@@ -105,9 +105,9 @@ class Tags(models.Model):
 
 
 class SocialMedia(models.Model):
-    title = models.CharField(verbose_name=_('Название'), max_length=255, help_text=_('Например: Instagram'))
-    logo = models.FileField(verbose_name=_('Логотип'), upload_to='social_media_logos/')
-    subscribers = models.CharField(verbose_name=_('Подписчики'), max_length=255, help_text=_('Например: +10,5 подписчиков'))
+    title = models.CharField(verbose_name=_('Название'), max_length=255, help_text=_('Например: Instagram'), null=True, blank=True)
+    logo = models.FileField(verbose_name=_('Логотип'), upload_to='social_media_logos/', null=True, blank=True)
+    subscribers = models.CharField(verbose_name=_('Подписчики'), max_length=255, help_text=_('Например: +10,5 подписчиков'), null=True, blank=True)
 
     class Meta:
         verbose_name = _('Социальная сеть')
